@@ -68,7 +68,7 @@ const Services = ({ fullPage }) => {
 
   const openWhatsApp = (service) => {
     const message = encodeURIComponent(`Hi! I'm interested in ${service} service at PraniPremi. Please provide more details and help me book an appointment.`);
-    window.open(`https://wa.me/919876543210?text=${message}`, '_blank');
+    window.open(`https://wa.me/919741226158?text=${message}`, '_blank');
   };
 
   return (

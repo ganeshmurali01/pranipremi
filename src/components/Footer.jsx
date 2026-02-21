@@ -5,7 +5,7 @@ const Footer = ({ setCurrentPage }) => {
 
   const openWhatsApp = () => {
     const message = encodeURIComponent("Hi! I'd like to know more about PraniPremi services.");
-    window.open(`https://wa.me/919876543210?text=${message}`, '_blank');
+    window.open(`https://wa.me/919741226158?text=${message}`, '_blank');
   };
 
   return (
@@ -62,7 +62,7 @@ const Footer = ({ setCurrentPage }) => {
                 </li>
                 <li>
                   <i className="fas fa-phone"></i>
-                  <span>+91 98765 43210</span>
+                  <span>+91-974-122-6158</span>
                 </li>
                 <li>
                   <i className="fas fa-envelope"></i>

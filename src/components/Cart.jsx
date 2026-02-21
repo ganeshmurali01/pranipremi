@@ -28,7 +28,7 @@ const Cart = ({ onClose }) => {
     const message = encodeURIComponent(
       `Hi! I'd like to place an order:\n\nItems: ${items}\n\nTotal: ₹${total}\n\nPlease confirm my order.`
     );
-    window.open(`https://wa.me/919876543210?text=${message}`, '_blank');
+    window.open(`https://wa.me/919741226158?text=${message}`, '_blank');
   };
 
   return (
