@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const Hero = ({ setCurrentPage }) => {
+function Hero({ setCurrentPage }) {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const slides = [
@@ -26,63 +26,74 @@ const Hero = ({ setCurrentPage }) => {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
+      setCurrentSlide(function(prev) {
+        return (prev + 1) % 3;
+      });
     }, 5000);
-    return () => clearInterval(timer);
-  }, [slides.length]);
+    
+    return function() {
+      clearInterval(timer);
+    };
+  }, []);
 
-  const openWhatsApp = (service) => {
-    const message = encodeURIComponent(`Hi! I'm interested in ${service} at PraniPremi. Please help me book an appointment.`);
-    window.open(`https://wa.me/919876543210?text=${message}`, '_blank');
-  };
+  function openWhatsApp(service) {
+    const message = encodeURIComponent('Hi! I am interested in ' + service + ' at PraniPremi. Please help me book an appointment.');
+    window.open('https://wa.me/919876543210?text=' + message, '_blank');
+  }
 
   return (
     <section className="hero">
       <div className="hero-slider">
-        {slides.map((slide, index) => (
-          <div
-            key={index}
-            className={`hero-slide ${index === currentSlide ? 'active' : ''}`}
-            style={{ backgroundImage: `url(${slide.image})` }}
-          >
-            <div className="hero-overlay"></div>
-            <div className="hero-content">
-              <div className="hero-badge">
-                <i className="fas fa-paw"></i>
-                <span>Welcome to PraniPremi</span>
-              </div>
-              <h1 className="hero-title">{slide.title}</h1>
-              <p className="hero-subtitle">{slide.subtitle}</p>
-              <div className="hero-buttons">
-                <button 
-                  className="btn btn-primary"
-                  onClick={() => openWhatsApp(slide.title)}
-                >
-                  <i className="fab fa-whatsapp"></i>
-                  {slide.cta}
-                </button>
-                <button 
-                  className="btn btn-secondary"
-                  onClick={() => setCurrentPage('services')}
-                >
-                  <i className="fas fa-arrow-right"></i>
-                  Explore Services
-                </button>
+        {slides.map(function(slide, index) {
+          return (
+            <div
+              key={index}
+              className={'hero-slide ' + (index === currentSlide ? 'active' : '')}
+              style={{ backgroundImage: 'url(' + slide.image + ')' }}
+            >
+              <div className="hero-overlay"></div>
+              <div className="hero-content">
+                <div className="hero-badge">
+                  <i className="fas fa-paw"></i>
+                  <span>Welcome to PraniPremi</span>
+                </div>
+                <h1 className="hero-title">{slide.title}</h1>
+                <p className="hero-subtitle">{slide.subtitle}</p>
+                <div className="hero-buttons">
+                  <button 
+                    className="btn btn-primary"
+                    onClick={function() { openWhatsApp(slide.title); }}
+                  >
+                    <i className="fab fa-whatsapp"></i>
+                    {slide.cta}
+                  </button>
+                  <button 
+                    className="btn btn-secondary"
+                    onClick={function() { setCurrentPage('services'); }}
+                  >
+                    <i className="fas fa-arrow-right"></i>
+                    Explore Services
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       <div className="hero-indicators">
-        {slides.map((_, index) => (
-          <button
-            key={index}
-            className={`indicator ${index === currentSlide ? 'active' : ''}`}
-            onClick={() => setCurrentSlide(index)}
-            aria-label={`Go to slide ${index + 1}`}
-          />
-        ))}
+        <button
+          className={'indicator ' + (currentSlide === 0 ? 'active' : '')}
+          onClick={function() { setCurrentSlide(0); }}
+        ></button>
+        <button
+          className={'indicator ' + (currentSlide === 1 ? 'active' : '')}
+          onClick={function() { setCurrentSlide(1); }}
+        ></button>
+        <button
+          className={'indicator ' + (currentSlide === 2 ? 'active' : '')}
+          onClick={function() { setCurrentSlide(2); }}
+        ></button>
       </div>
 
       <div className="hero-stats">
@@ -123,15 +134,8 @@ const Hero = ({ setCurrentPage }) => {
           </div>
         </div>
       </div>
-
-      <div className="scroll-indicator">
-        <div className="mouse">
-          <div className="wheel"></div>
-        </div>
-        <span>Scroll Down</span>
-      </div>
     </section>
   );
-};
+}
 
 export default Hero;

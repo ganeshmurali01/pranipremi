@@ -17,36 +17,25 @@ function App() {
   const [showCart, setShowCart] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
 
-  const renderPage = () => {
-    switch (currentPage) {
-      case 'home':
-        return (
-          <>
-            <Hero setCurrentPage={setCurrentPage} />
-            <Services />
-            <PetStore />
-            <Products addToCartEnabled={true} />
-            <Testimonials />
-          </>
-        );
-      case 'services':
-        return <Services fullPage={true} />;
-      case 'products':
-        return <Products fullPage={true} addToCartEnabled={true} />;
-      case 'pets':
-        return <PetStore fullPage={true} />;
-      default:
-        return (
-          <>
-            <Hero setCurrentPage={setCurrentPage} />
-            <Services />
-            <PetStore />
-            <Products addToCartEnabled={true} />
-            <Testimonials />
-          </>
-        );
-    }
-  };
+  let pageContent;
+
+  if (currentPage === 'home') {
+    pageContent = (
+      <>
+        <Hero setCurrentPage={setCurrentPage} />
+        <Services />
+        <PetStore />
+        <Products addToCartEnabled={true} />
+        <Testimonials />
+      </>
+    );
+  } else if (currentPage === 'services') {
+    pageContent = <Services fullPage={true} />;
+  } else if (currentPage === 'products') {
+    pageContent = <Products fullPage={true} addToCartEnabled={true} />;
+  } else if (currentPage === 'pets') {
+    pageContent = <PetStore fullPage={true} />;
+  }
 
   return (
     <CartProvider>
@@ -59,11 +48,10 @@ function App() {
         />
         
         <main>
-          {renderPage()}
+          {pageContent}
         </main>
 
         <Footer setCurrentPage={setCurrentPage} />
-        
         <WhatsAppButton />
         
         {showCart && <Cart onClose={() => setShowCart(false)} />}
