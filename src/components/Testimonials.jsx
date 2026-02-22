@@ -86,16 +86,6 @@ const Testimonials = () => {
               </div>
             ))}
           </div>
-
-          <div className="testimonial-dots">
-            {testimonials.map((_, index) => (
-              <button
-                key={index}
-                className={`dot ${index === currentIndex ? 'active' : ''}`}
-                onClick={() => setCurrentIndex(index)}
-              />
-            ))}
-          </div>
         </div>
       </div>
     </section>

@@ -41,6 +41,7 @@ const Navbar = ({ setCurrentPage, currentPage, setShowCart, setShowProfile }) =>
                   e.preventDefault();
                   setCurrentPage(item.id);
                   setIsMobileMenuOpen(false);
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
               >
                 <i className={`fas ${item.icon}`}></i>

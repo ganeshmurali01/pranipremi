@@ -3,7 +3,6 @@ import { useCart } from '../context/CartContext';
 
 const Products = ({ fullPage, addToCartEnabled }) => {
   const [activeCategory, setActiveCategory] = useState('all');
-  const [sortBy, setSortBy] = useState('popular');
   const { addToCart } = useCart();
   const [addedProducts, setAddedProducts] = useState([]);
 
@@ -104,65 +103,12 @@ const Products = ({ fullPage, addToCartEnabled }) => {
       reviews: 234,
       image: "https://images.unsplash.com/photo-1601758124510-52d02ddb7cbd?w=800",
       badge: "Safety"
-    },
-    {
-      id: 9,
-      name: "Automatic Pet Feeder",
-      category: "accessories",
-      price: 5999,
-      originalPrice: 7499,
-      rating: 4.9,
-      reviews: 89,
-      image: "https://images.unsplash.com/photo-1585499193151-0f50d54c4e0c?w=800",
-      badge: "Smart"
-    },
-    {
-      id: 10,
-      name: "Pet Shampoo - Natural",
-      category: "grooming",
-      price: 399,
-      originalPrice: 499,
-      rating: 4.3,
-      reviews: 156,
-      image: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=800",
-      badge: "Organic"
-    },
-    {
-      id: 11,
-      name: "Dental Care Treats",
-      category: "health",
-      price: 449,
-      originalPrice: 549,
-      rating: 4.5,
-      reviews: 201,
-      image: "https://images.unsplash.com/photo-1568640347023-a616a30bc3bd?w=800",
-      badge: ""
-    },
-    {
-      id: 12,
-      name: "Squeaky Plush Toy Set",
-      category: "toys",
-      price: 699,
-      originalPrice: 899,
-      rating: 4.7,
-      reviews: 345,
-      image: "https://images.unsplash.com/photo-1535294435445-d7249524ef2e?w=800",
-      badge: "Bundle"
     }
   ];
 
   const filteredProducts = activeCategory === 'all'
     ? products
     : products.filter(p => p.category === activeCategory);
-
-  const sortedProducts = [...filteredProducts].sort((a, b) => {
-    switch (sortBy) {
-      case 'price-low': return a.price - b.price;
-      case 'price-high': return b.price - a.price;
-      case 'rating': return b.rating - a.rating;
-      default: return b.reviews - a.reviews;
-    }
-  });
 
   const handleAddToCart = (product) => {
     addToCart(product);
@@ -200,19 +146,10 @@ const Products = ({ fullPage, addToCartEnabled }) => {
               </button>
             ))}
           </div>
-          
-          <div className="sort-dropdown">
-            <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
-              <option value="popular">Most Popular</option>
-              <option value="rating">Highest Rated</option>
-              <option value="price-low">Price: Low to High</option>
-              <option value="price-high">Price: High to Low</option>
-            </select>
-          </div>
         </div>
 
         <div className="products-grid">
-          {sortedProducts.map((product, index) => (
+          {filteredProducts.map((product, index) => (
             <div
               key={product.id}
               className="product-card"
@@ -225,14 +162,6 @@ const Products = ({ fullPage, addToCartEnabled }) => {
                 )}
                 <div className="product-discount">
                   {Math.round((1 - product.price / product.originalPrice) * 100)}% OFF
-                </div>
-                <div className="product-actions">
-                  <button className="action-btn wishlist">
-                    <i className="far fa-heart"></i>
-                  </button>
-                  <button className="action-btn quick-view">
-                    <i className="fas fa-eye"></i>
-                  </button>
                 </div>
               </div>
               
@@ -281,15 +210,6 @@ const Products = ({ fullPage, addToCartEnabled }) => {
             </div>
           ))}
         </div>
-
-        {fullPage && (
-          <div className="load-more">
-            <button className="btn btn-outline">
-              <i className="fas fa-sync-alt"></i>
-              Load More Products
-            </button>
-          </div>
-        )}
       </div>
     </section>
   );

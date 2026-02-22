@@ -21,7 +21,6 @@ const UserProfile = ({ onClose }) => {
         email: formData.email,
         phone: '9876543210',
         address: 'Mumbai, India',
-        avatar: null,
         orders: [
           { id: 1, date: '2024-01-15', total: 2599, status: 'Delivered' },
           { id: 2, date: '2024-01-20', total: 1899, status: 'In Transit' },
@@ -34,7 +33,6 @@ const UserProfile = ({ onClose }) => {
         email: formData.email,
         phone: formData.phone,
         address: formData.address,
-        avatar: null,
         orders: []
       });
     }
@@ -63,59 +61,25 @@ const UserProfile = ({ onClose }) => {
             <p>{user.email}</p>
           </div>
 
-          <div className="profile-tabs">
-            <div className="profile-section">
-              <h3><i className="fas fa-user"></i> Profile Information</h3>
-              <div className="info-grid">
-                <div className="info-item">
-                  <span className="label">Name</span>
-                  <span className="value">{user.name}</span>
-                </div>
-                <div className="info-item">
-                  <span className="label">Email</span>
-                  <span className="value">{user.email}</span>
-                </div>
-                <div className="info-item">
-                  <span className="label">Phone</span>
-                  <span className="value">{user.phone}</span>
-                </div>
-                <div className="info-item">
-                  <span className="label">Address</span>
-                  <span className="value">{user.address}</span>
-                </div>
+          <div className="profile-section">
+            <h3><i className="fas fa-user"></i> Profile Information</h3>
+            <div className="info-grid">
+              <div className="info-item">
+                <span className="label">Name</span>
+                <span className="value">{user.name}</span>
               </div>
-            </div>
-
-            <div className="profile-section">
-              <h3><i className="fas fa-shopping-bag"></i> Recent Orders</h3>
-              {user.orders.length > 0 ? (
-                <div className="orders-list">
-                  {user.orders.map(order => (
-                    <div key={order.id} className="order-item">
-                      <div className="order-info">
-                        <span className="order-id">Order #{order.id}</span>
-                        <span className="order-date">{order.date}</span>
-                      </div>
-                      <div className="order-details">
-                        <span className="order-total">₹{order.total}</span>
-                        <span className={`order-status ${order.status.toLowerCase().replace(' ', '-')}`}>
-                          {order.status}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <p className="no-orders">No orders yet</p>
-              )}
-            </div>
-
-            <div className="profile-section">
-              <h3><i className="fas fa-paw"></i> My Pets</h3>
-              <button className="btn btn-outline btn-full">
-                <i className="fas fa-plus"></i>
-                Add Pet Profile
-              </button>
+              <div className="info-item">
+                <span className="label">Email</span>
+                <span className="value">{user.email}</span>
+              </div>
+              <div className="info-item">
+                <span className="label">Phone</span>
+                <span className="value">{user.phone}</span>
+              </div>
+              <div className="info-item">
+                <span className="label">Address</span>
+                <span className="value">{user.address}</span>
+              </div>
             </div>
           </div>
 
@@ -239,35 +203,10 @@ const UserProfile = ({ onClose }) => {
             </div>
           )}
 
-          {isLogin && (
-            <div className="form-options">
-              <label className="checkbox-wrapper">
-                <input type="checkbox" />
-                <span>Remember me</span>
-              </label>
-              <a href="#forgot" className="forgot-link">Forgot Password?</a>
-            </div>
-          )}
-
           <button type="submit" className="btn btn-primary btn-full">
             {isLogin ? 'Sign In' : 'Create Account'}
           </button>
         </form>
-
-        <div className="auth-divider">
-          <span>or continue with</span>
-        </div>
-
-        <div className="social-login">
-          <button className="social-btn google">
-            <i className="fab fa-google"></i>
-            Google
-          </button>
-          <button className="social-btn facebook">
-            <i className="fab fa-facebook-f"></i>
-            Facebook
-          </button>
-        </div>
       </div>
     </div>
   );

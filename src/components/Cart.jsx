@@ -15,8 +15,10 @@ const Cart = ({ onClose }) => {
   const applyPromo = () => {
     if (promoCode.toUpperCase() === 'PET10') {
       setDiscount(cartTotal * 0.1);
+      alert('10% discount applied!');
     } else if (promoCode.toUpperCase() === 'FIRST20') {
       setDiscount(cartTotal * 0.2);
+      alert('20% discount applied!');
     } else {
       alert('Invalid promo code');
     }
@@ -28,7 +30,7 @@ const Cart = ({ onClose }) => {
     const message = encodeURIComponent(
       `Hi! I'd like to place an order:\n\nItems: ${items}\n\nTotal: ₹${total}\n\nPlease confirm my order.`
     );
-    window.open(`https://wa.me/919741226158?text=${message}`, '_blank');
+    window.open(`https://wa.me/919876543210?text=${message}`, '_blank');
   };
 
   return (
@@ -102,7 +104,7 @@ const Cart = ({ onClose }) => {
             <div className="cart-promo">
               <input
                 type="text"
-                placeholder="Enter promo code"
+                placeholder="Enter promo code (PET10 or FIRST20)"
                 value={promoCode}
                 onChange={(e) => setPromoCode(e.target.value)}
               />

@@ -1,161 +1,137 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const Services = ({ fullPage }) => {
-  const [activeService, setActiveService] = useState(null);
+const Hero = ({ setCurrentPage }) => {
+  const [currentSlide, setCurrentSlide] = useState(0);
 
-  const services = [
+  const slides = [
     {
-      id: 1,
-      title: "Pet Grooming",
-      icon: "fa-scissors",
-      color: "#FF6B9D",
-      description: "Professional grooming services including bathing, haircuts, nail trimming, and more.",
-      features: ["Full Body Bath & Dry", "Hair Cutting & Styling", "Nail Trimming & Filing", "Ear Cleaning", "Teeth Brushing", "Flea Treatment"],
-      price: "Starting ₹499",
-      image: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=800"
+      title: "Premium Pet Grooming",
+      subtitle: "Give your furry friend the spa treatment they deserve",
+      image: "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=1920",
+      cta: "Book Grooming"
     },
     {
-      id: 2,
-      title: "Pet Boarding",
-      icon: "fa-house",
-      color: "#6B5BFF",
-      description: "Safe and comfortable boarding facilities with 24/7 care for your beloved pets.",
-      features: ["24/7 Supervision", "Spacious Kennels", "Regular Exercise", "Nutritious Meals", "Medical Care", "Play Sessions"],
-      price: "Starting ₹799/day",
-      image: "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=800"
+      title: "Luxury Pet Boarding",
+      subtitle: "A home away from home for your beloved pets",
+      image: "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1920",
+      cta: "Book Boarding"
     },
     {
-      id: 3,
-      title: "Pet Training",
-      icon: "fa-graduation-cap",
-      color: "#FFB84D",
-      description: "Expert training programs to help your pet learn obedience and good behavior.",
-      features: ["Basic Obedience", "Potty Training", "Leash Training", "Socialization", "Behavioral Correction", "Trick Training"],
-      price: "Starting ₹1499",
-      image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800"
-    },
-    {
-      id: 4,
-      title: "Veterinary Care",
-      icon: "fa-stethoscope",
-      color: "#4ECDC4",
-      description: "Complete veterinary services including checkups, vaccinations, and treatments.",
-      features: ["Health Checkups", "Vaccinations", "Deworming", "Surgery", "Emergency Care", "Health Certificates"],
-      price: "Starting ₹299",
-      image: "https://images.unsplash.com/photo-1628009368231-7bb7cfcb0def?w=800"
-    },
-    {
-      id: 5,
-      title: "Pet Taxi",
-      icon: "fa-car",
-      color: "#96CEB4",
-      description: "Safe and comfortable transportation for your pets to and from our facility.",
-      features: ["AC Vehicles", "Trained Handlers", "GPS Tracking", "Pet-Friendly Crates", "Door-to-Door Service", "Insurance Covered"],
-      price: "Starting ₹199",
-      image: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=800"
-    },
-    {
-      id: 6,
-      title: "Pet Photography",
-      icon: "fa-camera",
-      color: "#DDA0DD",
-      description: "Professional pet photography sessions to capture precious moments.",
-      features: ["Studio Sessions", "Outdoor Shoots", "Digital Photos", "Print Options", "Props & Costumes", "Video Recording"],
-      price: "Starting ₹999",
-      image: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=800"
+      title: "Find Your Perfect Pet",
+      subtitle: "Adopt, buy or sell pets with trusted families",
+      image: "https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=1920",
+      cta: "Explore Pets"
     }
   ];
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [slides.length]);
+
   const openWhatsApp = (service) => {
-    const message = encodeURIComponent(`Hi! I'm interested in ${service} service at PraniPremi. Please provide more details and help me book an appointment.`);
-    window.open(`https://wa.me/919741226158?text=${message}`, '_blank');
+    const message = encodeURIComponent(`Hi! I'm interested in ${service} at PraniPremi. Please help me book an appointment.`);
+    window.open(`https://wa.me/919876543210?text=${message}`, '_blank');
   };
 
   return (
-    <section className={`services-section ${fullPage ? 'full-page' : ''}`} id="services">
-      <div className="container">
-        <div className="section-header">
-          <span className="section-badge">
-            <i className="fas fa-concierge-bell"></i>
-            Our Services
-          </span>
-          <h2 className="section-title">
-            Premium Care for Your <span className="highlight">Beloved Pets</span>
-          </h2>
-          <p className="section-subtitle">
-            We offer comprehensive pet care services with love and expertise
-          </p>
-        </div>
-
-        <div className="services-grid">
-          {services.map((service, index) => (
-            <div
-              key={service.id}
-              className={`service-card ${activeService === service.id ? 'active' : ''}`}
-              style={{ '--service-color': service.color, '--delay': `${index * 0.1}s` }}
-              onMouseEnter={() => setActiveService(service.id)}
-              onMouseLeave={() => setActiveService(null)}
-            >
-              <div className="service-image">
-                <img src={service.image} alt={service.title} />
-                <div className="service-overlay">
-                  <button 
-                    className="book-btn"
-                    onClick={() => openWhatsApp(service.title)}
-                  >
-                    <i className="fab fa-whatsapp"></i>
-                    Book Now
-                  </button>
-                </div>
+    <section className="hero">
+      <div className="hero-slider">
+        {slides.map((slide, index) => (
+          <div
+            key={index}
+            className={`hero-slide ${index === currentSlide ? 'active' : ''}`}
+            style={{ backgroundImage: `url(${slide.image})` }}
+          >
+            <div className="hero-overlay"></div>
+            <div className="hero-content">
+              <div className="hero-badge">
+                <i className="fas fa-paw"></i>
+                <span>Welcome to PraniPremi</span>
               </div>
-              
-              <div className="service-content">
-                <div className="service-icon">
-                  <i className={`fas ${service.icon}`}></i>
-                </div>
-                
-                <h3 className="service-title">{service.title}</h3>
-                <p className="service-description">{service.description}</p>
-                
-                <div className="service-features">
-                  {service.features.slice(0, 4).map((feature, i) => (
-                    <span key={i} className="feature-tag">
-                      <i className="fas fa-check"></i>
-                      {feature}
-                    </span>
-                  ))}
-                </div>
-                
-                <div className="service-footer">
-                  <span className="service-price">{service.price}</span>
-                  <button 
-                    className="service-btn"
-                    onClick={() => openWhatsApp(service.title)}
-                  >
-                    Book <i className="fas fa-arrow-right"></i>
-                  </button>
-                </div>
+              <h1 className="hero-title">{slide.title}</h1>
+              <p className="hero-subtitle">{slide.subtitle}</p>
+              <div className="hero-buttons">
+                <button 
+                  className="btn btn-primary"
+                  onClick={() => openWhatsApp(slide.title)}
+                >
+                  <i className="fab fa-whatsapp"></i>
+                  {slide.cta}
+                </button>
+                <button 
+                  className="btn btn-secondary"
+                  onClick={() => setCurrentPage('services')}
+                >
+                  <i className="fas fa-arrow-right"></i>
+                  Explore Services
+                </button>
               </div>
             </div>
-          ))}
-        </div>
-
-        <div className="services-cta">
-          <div className="cta-content">
-            <h3>Need a Custom Package?</h3>
-            <p>Contact us for personalized pet care solutions tailored to your needs</p>
           </div>
-          <button 
-            className="btn btn-primary"
-            onClick={() => openWhatsApp('custom package')}
-          >
-            <i className="fab fa-whatsapp"></i>
-            Chat With Us
-          </button>
+        ))}
+      </div>
+
+      <div className="hero-indicators">
+        {slides.map((_, index) => (
+          <button
+            key={index}
+            className={`indicator ${index === currentSlide ? 'active' : ''}`}
+            onClick={() => setCurrentSlide(index)}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
+      </div>
+
+      <div className="hero-stats">
+        <div className="stat-item">
+          <div className="stat-icon">
+            <i className="fas fa-heart"></i>
+          </div>
+          <div className="stat-info">
+            <span className="stat-number">5000+</span>
+            <span className="stat-label">Happy Pets</span>
+          </div>
         </div>
+        <div className="stat-item">
+          <div className="stat-icon">
+            <i className="fas fa-star"></i>
+          </div>
+          <div className="stat-info">
+            <span className="stat-number">4.9</span>
+            <span className="stat-label">Rating</span>
+          </div>
+        </div>
+        <div className="stat-item">
+          <div className="stat-icon">
+            <i className="fas fa-users"></i>
+          </div>
+          <div className="stat-info">
+            <span className="stat-number">3000+</span>
+            <span className="stat-label">Pet Parents</span>
+          </div>
+        </div>
+        <div className="stat-item">
+          <div className="stat-icon">
+            <i className="fas fa-award"></i>
+          </div>
+          <div className="stat-info">
+            <span className="stat-number">10+</span>
+            <span className="stat-label">Years Experience</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="scroll-indicator">
+        <div className="mouse">
+          <div className="wheel"></div>
+        </div>
+        <span>Scroll Down</span>
       </div>
     </section>
   );
 };
 
-export default Services;
+export default Hero;

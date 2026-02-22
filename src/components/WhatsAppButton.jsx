@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 const WhatsAppButton = () => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [showTooltip, setShowTooltip] = useState(true);
 
   const quickMessages = [
     { label: "Book Grooming", message: "Hi! I want to book a grooming appointment for my pet." },
@@ -13,24 +12,12 @@ const WhatsAppButton = () => {
 
   const openWhatsApp = (message) => {
     const encodedMessage = encodeURIComponent(message);
-    window.open(`https://wa.me/919741226158?text=${encodedMessage}`, '_blank');
+    window.open(`https://wa.me/919876543210?text=${encodedMessage}`, '_blank');
     setIsExpanded(false);
   };
 
-  React.useEffect(() => {
-    const timer = setTimeout(() => setShowTooltip(false), 5000);
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <div className={`whatsapp-widget ${isExpanded ? 'expanded' : ''}`}>
-      {showTooltip && !isExpanded && (
-        <div className="whatsapp-tooltip">
-          <span>Need help? Chat with us!</span>
-          <button onClick={() => setShowTooltip(false)}>×</button>
-        </div>
-      )}
-
       {isExpanded && (
         <div className="whatsapp-popup">
           <div className="popup-header">
