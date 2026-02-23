@@ -1,3 +1,10 @@
+// at top of the component function body
+console.count('Services render');
+
+useEffect(() => {
+  console.count('Services useEffect');
+}, []);
+
 import React, { useState, useEffect } from 'react';
 
 function Hero({ setCurrentPage }) {
