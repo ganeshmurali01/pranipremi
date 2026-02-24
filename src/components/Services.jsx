@@ -1,137 +1,96 @@
-import React, { useState, useEffect } from 'react';
+import React, { useMemo } from 'react';
 
-const Hero = ({ setCurrentPage }) => {
-  const [currentSlide, setCurrentSlide] = useState(0);
+const SERVICES = [
+  {
+    id: 'grooming',
+    title: 'Premium Pet Grooming',
+    blurb: 'Bath, brush, nail trim, and a fresh look—handled by gentle, trained groomers.',
+    icon: 'fas fa-scissors',
+    image: 'https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=1200',
+  },
+  {
+    id: 'boarding',
+    title: 'Luxury Pet Boarding',
+    blurb: 'Clean, safe, and cozy stays with playtime and regular updates to pet parents.',
+    icon: 'fas fa-hotel',
+    image: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1200',
+  },
+  {
+    id: 'training',
+    title: 'Obedience & Behavior Training',
+    blurb: 'Positive reinforcement-based sessions for well-mannered, confident pets.',
+    icon: 'fas fa-dog',
+    image: 'https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=1200',
+  },
+];
 
-  const slides = [
-    {
-      title: "Premium Pet Grooming",
-      subtitle: "Give your furry friend the spa treatment they deserve",
-      image: "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=1920",
-      cta: "Book Grooming"
-    },
-    {
-      title: "Luxury Pet Boarding",
-      subtitle: "A home away from home for your beloved pets",
-      image: "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1920",
-      cta: "Book Boarding"
-    },
-    {
-      title: "Find Your Perfect Pet",
-      subtitle: "Adopt, buy or sell pets with trusted families",
-      image: "https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=1920",
-      cta: "Explore Pets"
-    }
-  ];
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, [slides.length]);
+export default function Services({ fullPage = false }) {
+  // Defensive de-duplication (not strictly needed here, but future-proof)
+  const items = useMemo(() => {
+    const seen = new Set();
+    return SERVICES.filter(s => {
+      if (seen.has(s.id)) return false;
+      seen.add(s.id);
+      return true;
+    });
+  }, []);
 
   const openWhatsApp = (service) => {
-    const message = encodeURIComponent(`Hi! I'm interested in ${service} at PraniPremi. Please help me book an appointment.`);
-    window.open(`https://wa.me/919876543210?text=${message}`, '_blank');
+    const msg = encodeURIComponent(
+      `Hi! I'm interested in ${service} at PraniPremi. Please help me book an appointment.`
+    );
+    window.open(`https://wa.me/919876543210?text=${msg}`, '_blank');
   };
 
   return (
-    <section className="hero">
-      <div className="hero-slider">
-        {slides.map((slide, index) => (
-          <div
-            key={index}
-            className={`hero-slide ${index === currentSlide ? 'active' : ''}`}
-            style={{ backgroundImage: `url(${slide.image})` }}
-          >
-            <div className="hero-overlay"></div>
-            <div className="hero-content">
-              <div className="hero-badge">
-                <i className="fas fa-paw"></i>
-                <span>Welcome to PraniPremi</span>
+    <section className={`services ${fullPage ? 'full' : ''}`}>
+      <header className="section-header">
+        <h2 className="section-title">Our Services</h2>
+        {!fullPage && (
+          <p className="section-subtitle">
+            From spa days to safe stays—your pet is in good hands.
+          </p>
+        )}
+      </header>
+
+      <div className="services-grid">
+        {items.map((s) => (
+          <article className="service-card" key={s.id}>
+            {s.image && (
+              <div
+                className="service-media"
+                style={{ backgroundImage: `url(${s.image})` }}
+                aria-hidden="true"
+              />
+            )}
+
+            <div className="service-body">
+              <div className="service-icon">
+                <i className={s.icon} aria-hidden="true" />
               </div>
-              <h1 className="hero-title">{slide.title}</h1>
-              <p className="hero-subtitle">{slide.subtitle}</p>
-              <div className="hero-buttons">
-                <button 
+              <h3 className="service-title">{s.title}</h3>
+              <p className="service-blurb">{s.blurb}</p>
+
+              <div className="service-actions">
+                <button
                   className="btn btn-primary"
-                  onClick={() => openWhatsApp(slide.title)}
+                  onClick={() => openWhatsApp(s.title)}
                 >
-                  <i className="fab fa-whatsapp"></i>
-                  {slide.cta}
-                </button>
-                <button 
-                  className="btn btn-secondary"
-                  onClick={() => setCurrentPage('services')}
-                >
-                  <i className="fas fa-arrow-right"></i>
-                  Explore Services
+                  <i className="fab fa-whatsapp" aria-hidden="true" /> Book {s.title}
                 </button>
               </div>
             </div>
-          </div>
+          </article>
         ))}
       </div>
 
-      <div className="hero-indicators">
-        {slides.map((_, index) => (
-          <button
-            key={index}
-            className={`indicator ${index === currentSlide ? 'active' : ''}`}
-            onClick={() => setCurrentSlide(index)}
-            aria-label={`Go to slide ${index + 1}`}
-          />
-        ))}
-      </div>
-
-      <div className="hero-stats">
-        <div className="stat-item">
-          <div className="stat-icon">
-            <i className="fas fa-heart"></i>
-          </div>
-          <div className="stat-info">
-            <span className="stat-number">5000+</span>
-            <span className="stat-label">Happy Pets</span>
-          </div>
-        </div>
-        <div className="stat-item">
-          <div className="stat-icon">
-            <i className="fas fa-star"></i>
-          </div>
-          <div className="stat-info">
-            <span className="stat-number">4.9</span>
-            <span className="stat-label">Rating</span>
-          </div>
-        </div>
-        <div className="stat-item">
-          <div className="stat-icon">
-            <i className="fas fa-users"></i>
-          </div>
-          <div className="stat-info">
-            <span className="stat-number">3000+</span>
-            <span className="stat-label">Pet Parents</span>
-          </div>
-        </div>
-        <div className="stat-item">
-          <div className="stat-icon">
-            <i className="fas fa-award"></i>
-          </div>
-          <div className="stat-info">
-            <span className="stat-number">10+</span>
-            <span className="stat-label">Years Experience</span>
-          </div>
-        </div>
-      </div>
-
-      <div className="scroll-indicator">
-        <div className="mouse">
-          <div className="wheel"></div>
-        </div>
-        <span>Scroll Down</span>
-      </div>
+      {fullPage && (
+        <footer className="section-footer">
+          <p>
+            Have questions? Chat with us on WhatsApp—we’ll help you pick the right service.
+          </p>
+        </footer>
+      )}
     </section>
   );
-};
-
-export default Hero;
+}
