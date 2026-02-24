@@ -1,31 +1,41 @@
 import React, { useMemo } from 'react';
 
+/**
+ * Toggle how the cards look:
+ * - "image": big background image cards (hero-like)
+ * - "icon": small image/icon left, text-focused
+ */
+const CARD_STYLE = 'image'; // change to 'icon' to try the other style
+
 const SERVICES = [
   {
     id: 'grooming',
     title: 'Premium Pet Grooming',
     blurb: 'Bath, brush, nail trim, and a fresh look—handled by gentle, trained groomers.',
-    icon: 'fas fa-scissors',
     image: 'https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=1200',
+    icon: 'fas fa-scissors',
+    featured: true, // Feature card 1
   },
   {
     id: 'boarding',
     title: 'Luxury Pet Boarding',
     blurb: 'Clean, safe, and cozy stays with playtime and regular updates to pet parents.',
-    icon: 'fas fa-hotel',
     image: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1200',
+    icon: 'fas fa-hotel',
+    featured: true, // Feature card 2
   },
   {
     id: 'training',
     title: 'Obedience & Behavior Training',
     blurb: 'Positive reinforcement-based sessions for well-mannered, confident pets.',
-    icon: 'fas fa-dog',
     image: 'https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=1200',
+    icon: 'fas fa-dog',
+    featured: false,
   },
 ];
 
 export default function Services({ fullPage = false }) {
-  // Defensive de-duplication (not strictly needed here, but future-proof)
+  // Stable, de-duped list (future proof if you fetch later)
   const items = useMemo(() => {
     const seen = new Set();
     return SERVICES.filter(s => {
@@ -43,54 +53,78 @@ export default function Services({ fullPage = false }) {
   };
 
   return (
-    <section className={`services ${fullPage ? 'full' : ''}`}>
-      <header className="section-header">
-        <h2 className="section-title">Our Services</h2>
+    <section className={`services-section ${fullPage ? 'full' : ''}`}>
+      <header className="services-header">
+        <span className="badge">Services</span>
+        <h2 className="title">Pamper • Board • Train</h2>
         {!fullPage && (
-          <p className="section-subtitle">
-            From spa days to safe stays—your pet is in good hands.
+          <p className="subtitle">
+            Playful care with a premium touch—tailored for your furry family.
           </p>
         )}
       </header>
 
-      <div className="services-grid">
+      <div className={`services-grid ${CARD_STYLE === 'icon' ? 'icon-grid' : ''}`}>
         {items.map((s) => (
-          <article className="service-card" key={s.id}>
-            {s.image && (
-              <div
-                className="service-media"
-                style={{ backgroundImage: `url(${s.image})` }}
-                aria-hidden="true"
-              />
+          <article
+            key={s.id}
+            className={`service-card ${s.featured ? 'featured' : ''} ${CARD_STYLE}`}
+          >
+            {/* IMAGE STYLE */}
+            {CARD_STYLE === 'image' && (
+              <>
+                <div
+                  className="service-media"
+                  style={{ backgroundImage: `url(${s.image})` }}
+                  aria-hidden="true"
+                />
+                <div className="service-layer" />
+                <div className="service-body">
+                  <div className="chip">
+                    <i className={s.icon} aria-hidden="true" />
+                    <span>{s.title.split(' ')[0]}</span>
+                  </div>
+                  <h3 className="service-title">{s.title}</h3>
+                  <p className="service-blurb">{s.blurb}</p>
+                  <button
+                    className="btn-whatsapp"
+                    onClick={() => openWhatsApp(s.title)}
+                    aria-label={`Book ${s.title} on WhatsApp`}
+                  >
+                    <i className="fab fa-whatsapp" aria-hidden="true" />
+                    Book on WhatsApp
+                  </button>
+                </div>
+              </>
             )}
 
-            <div className="service-body">
-              <div className="service-icon">
-                <i className={s.icon} aria-hidden="true" />
-              </div>
-              <h3 className="service-title">{s.title}</h3>
-              <p className="service-blurb">{s.blurb}</p>
-
-              <div className="service-actions">
+            {/* ICON STYLE */}
+            {CARD_STYLE === 'icon' && (
+              <div className="service-body compact">
+                <div className="compact-header">
+                  <div className="mini-thumb" style={{ backgroundImage: `url(${s.image})` }} />
+                  <div className="compact-titles">
+                    <h3 className="service-title">{s.title}</h3>
+                    <div className="mini-chip">
+                      <i className={s.icon} aria-hidden="true" />
+                      <span>Popular</span>
+                    </div>
+                  </div>
+                </div>
+                <p className="service-blurb">{s.blurb}</p>
                 <button
-                  className="btn btn-primary"
+                  className="btn-whatsapp line"
                   onClick={() => openWhatsApp(s.title)}
+                  aria-label={`Book ${s.title} on WhatsApp`}
                 >
-                  <i className="fab fa-whatsapp" aria-hidden="true" /> Book {s.title}
+                  <i className="fab fa-whatsapp" aria-hidden="true" />
+                  Book on WhatsApp
                 </button>
               </div>
-            </div>
+            )}
           </article>
         ))}
       </div>
-
-      {fullPage && (
-        <footer className="section-footer">
-          <p>
-            Have questions? Chat with us on WhatsApp—we’ll help you pick the right service.
-          </p>
-        </footer>
-      )}
     </section>
   );
 }
