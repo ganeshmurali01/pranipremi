@@ -1,74 +1,129 @@
 import React from 'react';
 
-const Footer = ({ setCurrentPage }) => {
-  const currentYear = new Date().getFullYear();
-
-  const openWhatsApp = () => {
-    const message = encodeURIComponent("Hi! I'd like to know more about PraniPremi services.");
-    window.open(`https://wa.me/919876543210?text=${message}`, '_blank');
-  };
-
+const Footer = () => {
   return (
-    <footer className="footer">
-      <div className="footer-content">
-        <div className="container">
-          <div className="footer-grid">
-            <div className="footer-brand">
-              <div className="footer-logo">
-                <i className="fas fa-paw"></i>
-                <span>PraniPremi</span>
-              </div>
-              <p>Your trusted partner for all pet care needs. We provide grooming, boarding, pet buying/selling, and quality pet products.</p>
-              <div className="social-links">
-                <a href="#facebook" aria-label="Facebook"><i className="fab fa-facebook-f"></i></a>
-                <a href="#instagram" aria-label="Instagram"><i className="fab fa-instagram"></i></a>
-                <a href="#twitter" aria-label="Twitter"><i className="fab fa-twitter"></i></a>
-                <a href="#youtube" aria-label="YouTube"><i className="fab fa-youtube"></i></a>
-              </div>
-            </div>
+    <footer style={styles.footer}>
+      <div className="container">
 
-            <div className="footer-links">
-              <h4>Quick Links</h4>
-              <ul>
-                <li><a href="#home" onClick={() => setCurrentPage('home')}>Home</a></li>
-                <li><a href="#services" onClick={() => setCurrentPage('services')}>Our Services</a></li>
-                <li><a href="#pets" onClick={() => setCurrentPage('pets')}>Buy/Sell Pets</a></li>
-                <li><a href="#products" onClick={() => setCurrentPage('products')}>Pet Products</a></li>
-              </ul>
-            </div>
+        {/* Pre-footer CTA */}
+        <div style={styles.preFooter}>
+          <h2 style={styles.preFooterTitle}>Experience liftoff</h2>
+          <button className="btn btn-primary" style={{ padding: '16px 40px', fontSize: '1.25rem' }}>
+            Download
+          </button>
+        </div>
 
-            <div className="footer-contact">
-              <h4>Contact Us</h4>
-              <ul>
-                <li>
-                  <i className="fas fa-map-marker-alt"></i>
-                  <span>Mumbai, India</span>
-                </li>
-                <li>
-                  <i className="fas fa-phone"></i>
-                  <span>+91 98765 43210</span>
-                </li>
-                <li>
-                  <i className="fas fa-envelope"></i>
-                  <span>hello@pranipremi.com</span>
-                </li>
-              </ul>
-              <button className="btn btn-whatsapp" onClick={openWhatsApp}>
-                <i className="fab fa-whatsapp"></i>
-                Chat on WhatsApp
-              </button>
-            </div>
+        {/* Main Footer Links */}
+        <div style={styles.footerGrid}>
+          <div style={styles.linkGroup}>
+            <a href="#" style={styles.link}>Product</a>
+            <a href="#" style={styles.link}>Use Cases</a>
+            <a href="#" style={styles.link}>Pricing</a>
+            <a href="#" style={styles.link}>Blog</a>
+          </div>
+          <div style={styles.linkGroup}>
+            <a href="#" style={styles.link}>Documentation</a>
+            <a href="#" style={styles.link}>Changelog</a>
+            <a href="#" style={styles.link}>Releases</a>
+            <a href="#" style={styles.link}>Support</a>
+            <a href="#" style={styles.link}>Press</a>
           </div>
         </div>
-      </div>
 
-      <div className="footer-bottom">
-        <div className="container">
-          <p>&copy; {currentYear} PraniPremi. All rights reserved. Made with ❤️ for pets.</p>
+        {/* Massive Wordmark */}
+        <div style={styles.wordmarkContainer}>
+          <svg viewBox="0 0 1000 200" style={styles.wordmark}>
+            <text x="50%" y="80%" textAnchor="middle" style={{ fontSize: '180px', fontWeight: 'bold', fontFamily: 'var(--font-family)', fill: 'var(--text-primary)', letterSpacing: '-0.05em' }}>
+              antigravity
+            </text>
+          </svg>
         </div>
+
+        {/* Bottom Bar */}
+        <div style={styles.bottomBar}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-secondary)' }}>
+            <span className="google-symbols" style={{ fontSize: '24px' }}>explore</span>
+            <span style={{ fontWeight: '500' }}>Google</span>
+          </div>
+          <div style={styles.legalLinks}>
+            <a href="#" style={styles.legalLink}>About Google</a>
+            <a href="#" style={styles.legalLink}>Google Products</a>
+            <a href="#" style={styles.legalLink}>Privacy</a>
+            <a href="#" style={styles.legalLink}>Terms</a>
+          </div>
+        </div>
+
       </div>
     </footer>
   );
+};
+
+const styles = {
+  footer: {
+    backgroundColor: '#fff',
+    paddingTop: '80px',
+    borderTop: '1px solid var(--border-color)'
+  },
+  preFooter: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '32px',
+    marginBottom: '100px'
+  },
+  preFooterTitle: {
+    fontSize: 'clamp(3rem, 5vw, 4.5rem)',
+    fontWeight: '500',
+    color: 'var(--text-primary)',
+    textAlign: 'center'
+  },
+  footerGrid: {
+    display: 'flex',
+    gap: '120px',
+    marginBottom: '80px',
+    flexWrap: 'wrap'
+  },
+  linkGroup: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '16px'
+  },
+  link: {
+    fontSize: '1rem',
+    color: 'var(--text-primary)',
+    fontWeight: '500',
+    transition: 'color var(--transition-fast)'
+  },
+  wordmarkContainer: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    overflow: 'hidden',
+    padding: '40px 0'
+  },
+  wordmark: {
+    width: '100%',
+    height: 'auto',
+    maxHeight: '200px'
+  },
+  bottomBar: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: '32px 0',
+    borderTop: '1px solid var(--border-color)',
+    flexWrap: 'wrap',
+    gap: '24px'
+  },
+  legalLinks: {
+    display: 'flex',
+    gap: '32px',
+    flexWrap: 'wrap'
+  },
+  legalLink: {
+    fontSize: '0.9rem',
+    color: 'var(--text-secondary)'
+  }
 };
 
 export default Footer;

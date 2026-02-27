@@ -1,153 +1,129 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 
 function Hero({ setCurrentPage }) {
-  // Helpful debug counters (valid only inside the component)
-  console.count('Hero render');
-
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const intervalInitialized = useRef(false); // guard so we don't create multiple intervals
-
-  const slides = [
-    {
-      title: 'Premium Pet Grooming',
-      subtitle: 'Give your furry friend the spa treatment they deserve',
-      image: 'https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=1920',
-      cta: 'Book Grooming',
-    },
-    {
-      title: 'Luxury Pet Boarding',
-      subtitle: 'A home away from home for your beloved pets',
-      image: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1920',
-      cta: 'Book Boarding',
-    },
-    {
-      title: 'Find Your Perfect Pet',
-      subtitle: 'Adopt, buy or sell pets with trusted families',
-      image: 'https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=1920',
-      cta: 'Explore Pets',
-    },
-  ];
-
-  useEffect(() => {
-    console.count('Hero useEffect (interval setup)');
-
-    // Prevent duplicate intervals if the component re-mounts in dev or hot reload
-    if (intervalInitialized.current) return;
-    intervalInitialized.current = true;
-
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
-
-    return () => {
-      clearInterval(timer);
-      intervalInitialized.current = false;
-    };
-    // `slides.length` is constant here; if you later make slides dynamic,
-    // move slides outside the component or ensure a stable dependency.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  function openWhatsApp(service) {
-    const message = encodeURIComponent(
-      'Hi! I am interested in ' + service + ' at PraniPremi. Please help me book an appointment.'
-    );
-    window.open('https://wa.me/919876543210?text=' + message, '_blank');
-  }
-
   return (
-    <section className="hero">
-      <div className="hero-slider">
-        {slides.map((slide, index) => (
-          <div
-            key={index}
-            className={'hero-slide ' + (index === currentSlide ? 'active' : '')}
-            style={{ backgroundImage: 'url(' + slide.image + ')' }}
-          >
-            <div className="hero-overlay" />
-            <div className="hero-content">
-              <div className="hero-badge">
-                <i className="fas fa-paw" />
-                <span>Welcome to PraniPremi</span>
-              </div>
-              <h1 className="hero-title">{slide.title}</h1>
-              <p className="hero-subtitle">{slide.subtitle}</p>
-              <div className="hero-buttons">
-                <button
-                  className="btn btn-primary"
-                  onClick={() => openWhatsApp(slide.title)}
-                >
-                  <i className="fab fa-whatsapp" />
-                  {slide.cta}
-                </button>
-                <button
-                  className="btn btn-secondary"
-                  onClick={() => setCurrentPage('services')}
-                >
-                  <i className="fas fa-arrow-right" />
-                  Explore Services
-                </button>
-              </div>
-            </div>
-          </div>
-        ))}
+    <section style={styles.heroSection}>
+      <div style={styles.backgroundEffects}>
+        <div style={styles.blurBlob({ top: '10%', left: '15%', background: 'rgba(66, 133, 244, 0.15)' })}></div>
+        <div style={styles.blurBlob({ top: '20%', right: '15%', background: 'rgba(234, 67, 53, 0.1)' })}></div>
+        <div style={styles.blurBlob({ bottom: '20%', left: '40%', background: 'rgba(251, 188, 5, 0.1)' })}></div>
       </div>
 
-      <div className="hero-indicators">
-        <button
-          className={'indicator ' + (currentSlide === 0 ? 'active' : '')}
-          onClick={() => setCurrentSlide(0)}
-        />
-        <button
-          className={'indicator ' + (currentSlide === 1 ? 'active' : '')}
-          onClick={() => setCurrentSlide(1)}
-        />
-        <button
-          className={'indicator ' + (currentSlide === 2 ? 'active' : '')}
-          onClick={() => setCurrentSlide(2)}
-        />
-      </div>
+      <div style={styles.content}>
+        <div style={styles.badge}>
+          <span className="google-symbols" style={{ fontSize: '18px', color: 'var(--google-blue)' }}>auto_awesome</span>
+          <span>Introducing Gemini 3.1 Pro in Google Antigravity</span>
+          <span className="google-symbols" style={{ fontSize: '18px' }}>arrow_forward</span>
+        </div>
 
-      <div className="hero-stats">
-        <div className="stat-item">
-          <div className="stat-icon">
-            <i className="fas fa-heart" />
-          </div>
-          <div className="stat-info">
-            <span className="stat-number">5000+</span>
-            <span className="stat-label">Happy Pets</span>
-          </div>
+        <h1 style={styles.title}>
+          Experience liftoff with<br />the next-generation IDE
+        </h1>
+
+        <div style={styles.buttonGroup}>
+          <button className="btn btn-primary" style={styles.primaryBtn} onClick={() => alert('Download initiated!')}>
+            <span className="google-symbols" style={{ fontSize: '20px' }}>window</span>
+            Download for Windows
+          </button>
+
+          <button className="btn btn-secondary" style={styles.secondaryBtn} onClick={() => setCurrentPage('services')}>
+            Explore use cases
+          </button>
         </div>
-        <div className="stat-item">
-          <div className="stat-icon">
-            <i className="fas fa-star" />
-          </div>
-          <div className="stat-info">
-            <span className="stat-number">4.9</span>
-            <span className="stat-label">Rating</span>
-          </div>
-        </div>
-        <div className="stat-item">
-          <div className="stat-icon">
-            <i className="fas fa-users" />
-          </div>
-          <div className="stat-info">
-            <span className="stat-number">3000+</span>
-            <span className="stat-label">Pet Parents</span>
-          </div>
-        </div>
-        <div className="stat-item">
-          <div className="stat-icon">
-            <i className="fas fa-award" />
-          </div>
-          <div className="stat-info">
-            <span className="stat-number">10+</span>
-            <span className="stat-label">Years Experience</span>
-          </div>
-        </div>
+
+        <p style={styles.subtext}>
+          Available for macOS, Windows, and Linux. <a href="#" style={{ textDecoration: 'underline' }}>View all downloads</a>
+        </p>
       </div>
     </section>
   );
 }
+
+const styles = {
+  heroSection: {
+    position: 'relative',
+    minHeight: '100vh',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '120px 24px 80px',
+    overflow: 'hidden',
+    textAlign: 'center'
+  },
+  backgroundEffects: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    zIndex: -1,
+    overflow: 'hidden',
+    pointerEvents: 'none'
+  },
+  blurBlob: (props) => ({
+    position: 'absolute',
+    width: '40vi',
+    height: '40vi',
+    borderRadius: '50%',
+    filter: 'blur(80px)',
+    opacity: 0.8,
+    ...props
+  }),
+  content: {
+    maxWidth: '900px',
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    zIndex: 1
+  },
+  badge: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '8px',
+    padding: '6px 16px',
+    backgroundColor: 'var(--bg-color)',
+    border: '1px solid var(--border-color)',
+    borderRadius: '50px',
+    fontSize: '0.875rem',
+    fontWeight: '500',
+    color: 'var(--text-primary)',
+    marginBottom: '32px',
+    cursor: 'pointer',
+    transition: 'background var(--transition-fast)',
+    boxShadow: '0 2px 4px rgba(0,0,0,0.02)'
+  },
+  title: {
+    fontSize: 'clamp(3rem, 6vw, 5.5rem)',
+    fontWeight: '500',
+    lineHeight: '1.1',
+    letterSpacing: '-0.03em',
+    color: 'var(--text-primary)',
+    marginBottom: '40px'
+  },
+  buttonGroup: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '16px',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    marginBottom: '24px'
+  },
+  primaryBtn: {
+    padding: '16px 32px',
+    fontSize: '1.1rem',
+    gap: '12px'
+  },
+  secondaryBtn: {
+    padding: '16px 32px',
+    fontSize: '1.1rem',
+    backgroundColor: '#fff',
+    border: '1px solid var(--border-color)'
+  },
+  subtext: {
+    fontSize: '0.9rem',
+    color: 'var(--text-secondary)'
+  }
+};
 
 export default Hero;

@@ -1,95 +1,95 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 const Testimonials = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const testimonials = [
-    {
-      id: 1,
-      name: "Priya Sharma",
-      pet: "Golden Retriever - Max",
-      image: "https://randomuser.me/api/portraits/women/1.jpg",
-      rating: 5,
-      text: "PraniPremi has been amazing! Their grooming services are top-notch. Max always comes back looking and smelling great. The staff is so caring and professional."
-    },
-    {
-      id: 2,
-      name: "Rahul Verma",
-      pet: "Persian Cat - Whiskers",
-      image: "https://randomuser.me/api/portraits/men/2.jpg",
-      rating: 5,
-      text: "Found my beautiful Persian cat through PraniPremi. The whole process was smooth and they helped with all the documentation. Highly recommended!"
-    },
-    {
-      id: 3,
-      name: "Anita Desai",
-      pet: "Labrador - Bruno",
-      image: "https://randomuser.me/api/portraits/women/3.jpg",
-      rating: 5,
-      text: "The boarding facility is excellent. Left Bruno there for 2 weeks and he was so happy! The daily updates and photos gave me peace of mind."
-    },
-    {
-      id: 4,
-      name: "Vikram Singh",
-      pet: "German Shepherd - Rex",
-      image: "https://randomuser.me/api/portraits/men/4.jpg",
-      rating: 5,
-      text: "Best pet products at great prices! Fast delivery and genuine products. Their WhatsApp support is very responsive."
-    }
-  ];
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, [testimonials.length]);
-
   return (
-    <section className="testimonials-section">
-      <div className="container">
-        <div className="section-header">
-          <span className="section-badge">
-            <i className="fas fa-quote-left"></i>
-            Testimonials
-          </span>
-          <h2 className="section-title">
-            What Pet Parents <span className="highlight">Say About Us</span>
-          </h2>
+    <section id="testimonials" className="section" style={styles.section}>
+      <div className="container" style={styles.container}>
+        <div style={styles.content}>
+          <h2 style={styles.title}>Higher-level Abstractions</h2>
+          <p style={styles.description}>
+            A more intuitive task-based approach to monitoring agent activity, presenting you with essential
+            artifacts and verification results to build trust.
+          </p>
         </div>
 
-        <div className="testimonials-slider">
-          <div 
-            className="testimonials-track"
-            style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-          >
-            {testimonials.map(testimonial => (
-              <div key={testimonial.id} className="testimonial-card">
-                <div className="testimonial-content">
-                  <div className="quote-icon">
-                    <i className="fas fa-quote-left"></i>
-                  </div>
-                  <p className="testimonial-text">{testimonial.text}</p>
-                  <div className="testimonial-rating">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <i key={i} className="fas fa-star"></i>
-                    ))}
-                  </div>
-                </div>
-                <div className="testimonial-author">
-                  <img src={testimonial.image} alt={testimonial.name} />
-                  <div className="author-info">
-                    <h4>{testimonial.name}</h4>
-                    <p>{testimonial.pet}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
+        <div style={styles.exampleBox}>
+          <div style={styles.promptBubble}>
+            "Build a Next.js dashboard with an activity graph using Recharts and a Prisma backend."
+          </div>
+          <div style={styles.systemResponse}>
+            <div style={styles.loadingDots}>
+              <span className="dot"></span><span className="dot"></span><span className="dot"></span>
+            </div>
+            <p style={{ margin: '12px 0 0', fontSize: '0.9rem', color: '#888' }}>Working on implementation plan...</p>
           </div>
         </div>
       </div>
     </section>
   );
+};
+
+const styles = {
+  section: {
+    padding: '120px 0',
+    backgroundColor: 'var(--bg-color)'
+  },
+  container: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '60px',
+    flexWrap: 'wrap'
+  },
+  content: {
+    flex: '1 1 400px',
+    paddingRight: '40px'
+  },
+  title: {
+    fontSize: 'clamp(2rem, 4vw, 3rem)',
+    fontWeight: '500',
+    marginBottom: '24px',
+    lineHeight: '1.2',
+    color: 'var(--text-primary)'
+  },
+  description: {
+    fontSize: '1.1rem',
+    lineHeight: '1.6',
+    color: 'var(--text-secondary)'
+  },
+  exampleBox: {
+    flex: '1 1 500px',
+    backgroundColor: '#fff',
+    borderRadius: 'var(--radius-card)',
+    padding: '40px',
+    boxShadow: '0 24px 60px rgba(0,0,0,0.06)',
+    border: '1px solid var(--border-color)',
+    position: 'relative',
+    overflow: 'hidden'
+  },
+  promptBubble: {
+    backgroundColor: '#E8EAED',
+    padding: '16px 24px',
+    borderRadius: '24px 24px 24px 0',
+    fontSize: '1rem',
+    fontWeight: '500',
+    color: 'var(--text-primary)',
+    marginBottom: '24px',
+    display: 'inline-block',
+    maxWidth: '80%'
+  },
+  systemResponse: {
+    backgroundColor: '#1A73E8',
+    color: '#fff',
+    padding: '16px 24px',
+    borderRadius: '24px 24px 0 24px',
+    display: 'inline-block',
+    maxWidth: '80%',
+    float: 'right',
+    clear: 'both'
+  },
+  loadingDots: {
+    display: 'flex',
+    gap: '6px'
+  }
 };
 
 export default Testimonials;
