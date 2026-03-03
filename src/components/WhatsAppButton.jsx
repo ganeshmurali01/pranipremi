@@ -12,7 +12,7 @@ const WhatsAppButton = () => {
 
   const openWhatsApp = (message) => {
     const encodedMessage = encodeURIComponent(message);
-    window.open(`https://wa.me/919876543210?text=${encodedMessage}`, '_blank');
+    window.open(`https://wa.me/919741226158?text=${encodedMessage}`, '_blank');
     setIsExpanded(false);
   };
 

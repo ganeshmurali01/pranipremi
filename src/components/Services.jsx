@@ -49,7 +49,7 @@ export default function Services({ fullPage = false }) {
     const msg = encodeURIComponent(
       `Hi! I'm interested in ${service} at PraniPremi. Please help me book an appointment.`
     );
-    window.open(`https://wa.me/919876543210?text=${msg}`, '_blank');
+    window.open(`https://wa.me/919741226158?text=${msg}`, '_blank');
   };
 
   return (

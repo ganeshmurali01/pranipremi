@@ -71,7 +71,7 @@ const PetStore = ({ fullPage }) => {
 
   const openWhatsApp = (pet) => {
     const message = encodeURIComponent(`Hi! I'm interested in the ${pet.name} (${pet.breed}) listed at ₹${pet.price.toLocaleString()}. Please provide more details.`);
-    window.open(`https://wa.me/919876543210?text=${message}`, '_blank');
+    window.open(`https://wa.me/919741226158?text=${message}`, '_blank');
   };
 
   return (

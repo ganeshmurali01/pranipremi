@@ -5,7 +5,7 @@ const Footer = ({ setCurrentPage }) => {
 
   const openWhatsApp = () => {
     const message = encodeURIComponent("Hi! I'd like to know more about PraniPremi services.");
-    window.open(`https://wa.me/919876543210?text=${message}`, '_blank');
+    window.open(`https://wa.me/919741226158?text=${message}`, '_blank');
   };
 
   return (

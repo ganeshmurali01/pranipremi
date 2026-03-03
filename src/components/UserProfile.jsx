@@ -19,8 +19,8 @@ const UserProfile = ({ onClose }) => {
       login({
         name: formData.email.split('@')[0],
         email: formData.email,
-        phone: '9876543210',
-        address: 'Mumbai, India',
+        phone: '9741226158',
+        address: 'Bangaluru, India',
         orders: [
           { id: 1, date: '2024-01-15', total: 2599, status: 'Delivered' },
           { id: 2, date: '2024-01-20', total: 1899, status: 'In Transit' },
