@@ -42,15 +42,15 @@ const Footer = ({ setCurrentPage }) => {
               <ul>
                 <li>
                   <i className="fas fa-map-marker-alt"></i>
-                  <span>Mumbai, India</span>
+                  <span>Bangaluru, Karanataka</span>
                 </li>
                 <li>
                   <i className="fas fa-phone"></i>
-                  <span>+91 98765 43210</span>
+                  <span>+91 9741226158</span>
                 </li>
                 <li>
                   <i className="fas fa-envelope"></i>
-                  <span>hello@pranipremi.com</span>
+                  <span>pranipremi.store</span>
                 </li>
               </ul>
               <button className="btn btn-whatsapp" onClick={openWhatsApp}>

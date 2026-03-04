@@ -22,7 +22,7 @@ const PetStore = ({ fullPage }) => {
       image: "https://images.unsplash.com/photo-1633722715463-d30f4f325e24?w=800",
       vaccinated: true,
       trained: false,
-      location: "Mumbai"
+      location: "Bengaluru"
     },
     {
       id: 2,
@@ -35,7 +35,7 @@ const PetStore = ({ fullPage }) => {
       image: "https://images.unsplash.com/photo-1574158622682-e40e69881006?w=800",
       vaccinated: true,
       trained: true,
-      location: "Delhi"
+      location: "Bengaluru"
     },
     {
       id: 3,
@@ -48,7 +48,7 @@ const PetStore = ({ fullPage }) => {
       image: "https://images.unsplash.com/photo-1591160690555-5debfba289f0?w=800",
       vaccinated: true,
       trained: false,
-      location: "Bangalore"
+      location: "Bengaluru"
     },
     {
       id: 4,
