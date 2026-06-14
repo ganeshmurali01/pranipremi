@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const Navbar = ({ setCurrentPage, currentPage }) => {
+const Navbar = ({ setCurrentPage, currentPage, onBookNow }) => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -47,8 +47,8 @@ const Navbar = ({ setCurrentPage, currentPage }) => {
         </ul>
 
         <div style={styles.navActions}>
-          <button className="btn btn-primary" style={styles.downloadBtn}>
-            Download <span className="google-symbols" style={{ fontSize: '20px' }}>download</span>
+          <button className="btn btn-primary" style={styles.downloadBtn} onClick={onBookNow}>
+            Book Now <span className="google-symbols" style={{ fontSize: '20px' }}>calendar_month</span>
           </button>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Hero({ setCurrentPage }) {
+function Hero({ setCurrentPage, onBookNow }) {
   return (
     <section style={styles.heroSection}>
       <div style={styles.backgroundEffects}>
@@ -21,9 +21,9 @@ function Hero({ setCurrentPage }) {
         </h1>
 
         <div style={styles.buttonGroup}>
-          <button className="btn btn-primary" style={styles.primaryBtn} onClick={() => alert('Download initiated!')}>
-            <span className="google-symbols" style={{ fontSize: '20px' }}>window</span>
-            Download for Windows
+          <button className="btn btn-primary" style={styles.primaryBtn} onClick={onBookNow}>
+            <span className="google-symbols" style={{ fontSize: '20px' }}>calendar_month</span>
+            Book a Service
           </button>
 
           <button className="btn btn-secondary" style={styles.secondaryBtn} onClick={() => setCurrentPage('services')}>
