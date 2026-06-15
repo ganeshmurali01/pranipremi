@@ -10,12 +10,14 @@ import Cart from './components/Cart';
 import UserProfile from './components/UserProfile';
 import WhatsAppButton from './components/WhatsAppButton';
 import Footer from './components/Footer';
+import BookingForm from './components/Bookingform';
 import './App.css';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [showCart, setShowCart] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
+  const [showBookingForm, setShowBookingForm] = useState(false);
 
   let pageContent;
 
@@ -46,16 +48,29 @@ function App() {
           setShowCart={setShowCart}
           setShowProfile={setShowProfile}
         />
-        
+
         <main>
           {pageContent}
+
+          {/* ✅ TEMP button to open form */}
+          <button onClick={() => setShowBookingForm(true)}>
+            Book Service
+          </button>
         </main>
 
         <Footer setCurrentPage={setCurrentPage} />
         <WhatsAppButton />
-        
+
         {showCart && <Cart onClose={() => setShowCart(false)} />}
         {showProfile && <UserProfile onClose={() => setShowProfile(false)} />}
+
+        {/* ✅ Booking Form */}
+        {showBookingForm && (
+          <BookingForm
+            isOpen={showBookingForm}
+            onClose={() => setShowBookingForm(false)}
+          />
+        )}
       </div>
     </CartProvider>
   );
